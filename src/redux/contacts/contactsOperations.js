@@ -26,8 +26,6 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
 
-// axios.defaults.baseURL = "https://lpj-tasker.herokuapp.com";
-
 const tokenSet = (token) =>
   (axios.defaults.headers.common.Authorization = `Bearer ${token}`);
 const tokenUnset = () => (axios.defaults.headers.common.Authorization = "");
