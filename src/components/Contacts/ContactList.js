@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { CardDeck } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import ContactListItem from "./ContactListItem";
@@ -13,41 +13,39 @@ import {
 } from "../../redux/contacts/contactsSelectors";
 import { getContacts } from "../../redux/contacts/contactsOperations";
 
-class ContactList extends Component {
-  componentDidMount() {
-    this.props.getContacts(this.props.token);
-  }
-
-  filteredContact = (contacts, filter) => {
-    if (filter.length !== 0) {
-      return contacts.filter((contact) =>
-        contact.name.toLowerCase().includes(filter.toLowerCase())
-      );
-    } else {
-      return contacts;
-    }
-  };
-
-  render() {
-    const { contacts, filter } = this.props;
-    const filteredContacts = this.filteredContact(contacts, filter);
-    return (
-      <>
-        <br />
-        <AddContact />
-        <FindContact />
-        <br />
-        <h2 className="row row-cols-5 justify-content-center">Contacts list</h2>
-        {filteredContacts.length !== 0 && (
-          <CardDeck className="row row-cols-md-5 justify-content-center">
-            {filteredContacts.map((contact) => (
-              <ContactListItem contact={contact} key={contact.id} />
-            ))}
-          </CardDeck>
-        )}
-      </>
+const filteredContact = (contacts, filter) => {
+  if (filter.length !== 0) {
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
+  } else {
+    return contacts;
   }
+};
+
+function ContactList({ getContacts, token, contacts, filter }) {
+  useEffect(() => {
+    getContacts(token);
+  }, [getContacts, token]);
+
+  const filteredContacts = filteredContact(contacts, filter);
+
+  return (
+    <>
+      <br />
+      <AddContact />
+      <FindContact />
+      <br />
+      <h2 className="row row-cols-5 justify-content-center">Contacts list</h2>
+      {filteredContacts.length !== 0 && (
+        <CardDeck className="row row-cols-md-5 justify-content-center">
+          {filteredContacts.map((contact) => (
+            <ContactListItem contact={contact} key={contact.id} />
+          ))}
+        </CardDeck>
+      )}
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

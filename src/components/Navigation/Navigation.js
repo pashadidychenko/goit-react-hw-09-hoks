@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { getStatusLogOn } from "../../redux/status/statusSelectors";
 import PublicMenu from "./PublicMenu";
 
-function Navigation({ logOn, props }) {
+function Navigation({ logOn }) {
   return (
     <>
       <Nav

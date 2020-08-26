@@ -1,39 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
 import { Modal, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { connect } from "react-redux";
 import { logoutUser } from "../../redux/contacts/contactsOperations";
+import { useLocalStorage } from "react-use";
 
-class LogOut extends Component {
-  handleSubmit = () => {
-    this.props.logoutUser();
-    this.props.history.replace("/");
+function LogOut({ logoutUser }) {
+  const [_, setValue] = useLocalStorage("token");
+  let history = useHistory();
+
+  const handleSubmit = () => {
+    setValue(null);
+    logoutUser();
+    history.replace("/");
   };
-  handleCencel = () => {
-    this.props.history.replace("/contacts");
+  const handleCencel = () => {
+    history.replace("/contacts");
   };
-  render() {
-    return (
-      <Modal.Dialog>
-        <Modal.Header>
-          <Modal.Title>Confirm log out</Modal.Title>
-        </Modal.Header>
 
-        <Modal.Body>
-          <p>Do you wont log out?</p>
-        </Modal.Body>
+  return (
+    <Modal.Dialog>
+      <Modal.Header>
+        <Modal.Title>Confirm log out</Modal.Title>
+      </Modal.Header>
 
-        <Modal.Footer>
-          <Button variant="secondary" type="button" onClick={this.handleCencel}>
-            Cancel
-          </Button>
-          <Button variant="primary" type="button" onClick={this.handleSubmit}>
-            Log out
-          </Button>
-        </Modal.Footer>
-      </Modal.Dialog>
-    );
-  }
+      <Modal.Body>
+        <p>Do you wont log out?</p>
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" type="button" onClick={handleCencel}>
+          Cancel
+        </Button>
+        <Button variant="primary" type="button" onClick={handleSubmit}>
+          Log out
+        </Button>
+      </Modal.Footer>
+    </Modal.Dialog>
+  );
 }
 
 const mapDispatchToProps = {

@@ -21,7 +21,7 @@ import {
   removeContactsSuccess,
   removeContactsError,
 } from "./contactsActions";
-import { statusLogOn } from "../status/statusActions";
+import { statusLogOn, statusRemember } from "../status/statusActions";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
@@ -80,7 +80,8 @@ const logoutUser = () => (dispatch) => {
     .then(() => {
       tokenUnset();
       dispatch(statusLogOn(false));
-      dispatch(logoutSuccess());
+      dispatch(statusRemember(false));
+      dispatch(logoutSuccess(null));
     })
     .catch((error) => dispatch(logoutError(error.message)));
 };

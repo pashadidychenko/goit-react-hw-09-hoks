@@ -18,6 +18,8 @@ const logoutRequest = createAction("userBook/logoutRequest");
 const logoutSuccess = createAction("userBook/logoutSuccess");
 const logoutError = createAction("userBook/logoutError");
 
+const setToken = createAction("userBook/setToken");
+
 // Contacts Action
 
 const addContactsRequest = createAction("userBook/addRequest");
@@ -57,4 +59,5 @@ export {
   removeContactsSuccess,
   removeContactsError,
   getFilterValue,
+  setToken,
 };

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import routes from "../../routes";
 
-function PublicMenu({ user }) {
+function PublicMenu() {
   return (
     <Nav
       variant="tabs"

@@ -15,6 +15,7 @@ import {
   removeContactsSuccess,
   removeContactsError,
   getFilterValue,
+  setToken,
 } from "../contacts/contactsActions";
 
 const initialState = {
@@ -42,9 +43,10 @@ const contactsReducer = createReducer(
       ...state,
       user: action.payload,
     }),
-    [getUserError]: (state, action) => ({ ...state, ...action.payload }),
-    [logoutSuccess]: () => ({
+    [getUserError]: (state, action) => ({ ...state, error: action.payload }),
+    [logoutSuccess]: (state, action) => ({
       ...initialState,
+      token: action.payload,
     }),
     [logoutError]: (state, action) => ({ ...state, error: action.payload }),
     [addContactsSuccess]: (state, action) => ({
@@ -78,6 +80,10 @@ const contactsReducer = createReducer(
     [getFilterValue]: (state, action) => ({
       ...state,
       filter: action.payload,
+    }),
+    [setToken]: (state, action) => ({
+      ...state,
+      token: action.payload,
     }),
   }
 );

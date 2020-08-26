@@ -9,14 +9,10 @@ function LoginPage({ loginUser, statusRemember }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleChangeEmail = () => {
-    setEmail(email);
-  };
-  const handleChangePassword = () => {
-    setPassword(password);
-  };
-  const handleCheked = (e) => statusRemember(e.target.checked);
+  const handleChangeEmail = (e) => setEmail(e.target.value);
+  const handleChangePassword = (e) => setPassword(e.target.value);
   const handleSubmit = () => loginUser({ email, password });
+  const handleCheked = (e) => statusRemember(e.target.checked);
 
   return (
     <Container>
@@ -75,32 +71,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(LoginPage);
-
-// const initialState = {
-//   email: "",
-//   password: "",
-// };
-
-// class LoginPage extends Component {
-//   state = {
-//     email: "",
-//     password: "",
-//   };
-
-//   handleChange = ({ target: { name, value } }) => {
-//     this.setState({ [name]: value });
-//   };
-
-//   handleSubmit = () => {
-//     this.props.loginUser(this.state);
-//     this.setState({ ...initialState });
-//   };
-
-//   handleCheked = (e) => {
-//     const { statusRemember } = this.props;
-//     const check = e.target.checked;
-//     statusRemember(check);
-//   };
-
-//   render() {
-//     const { email, password } = this.state;
