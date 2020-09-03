@@ -9,6 +9,7 @@ import { useLocalStorage } from "react-use";
 function LogOut({ logoutUser }) {
   const [_, setValue] = useLocalStorage("token");
   let history = useHistory();
+  console.log(_);
 
   const handleSubmit = () => {
     setValue(null);
